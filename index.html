@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f8f5ff" />
+  <title>MY LEARNING ROOM</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <section id="startScreen" class="screen start-screen">
+    <div class="start-card">
+      <div class="brand-badge">3D LEARNING STUDIO</div>
+      <h1>MY LEARNING ROOM</h1>
+      <p>나의 생각을 공간으로 표현해 보세요.</p>
+
+      <div class="form-grid">
+        <label>
+          <span>학번</span>
+          <input id="studentNumber" inputmode="numeric" maxlength="12" placeholder="예: 3012" />
+        </label>
+        <label>
+          <span>이름</span>
+          <input id="studentName" maxlength="20" placeholder="예: 홍길동" />
+        </label>
+        <label class="full">
+          <span>작품 이름</span>
+          <input id="projectTitle" maxlength="40" value="도시의 인구가 증가한 이유" />
+        </label>
+      </div>
+
+      <div class="start-actions">
+        <button id="createProjectBtn" class="primary">새 미니룸 시작하기</button>
+        <button id="showProjectsBtn">저장된 미니룸 불러오기</button>
+      </div>
+
+      <div id="projectList" class="project-list hidden" aria-live="polite"></div>
+      <p class="storage-note">작품은 이 기기의 브라우저 LocalStorage에 자동 저장됩니다.</p>
+    </div>
+  </section>
+
+  <main id="editorScreen" class="screen editor-screen hidden">
+    <header class="topbar">
+      <div>
+        <strong id="topProjectTitle">MY LEARNING ROOM</strong>
+        <span id="saveState">저장됨</span>
+      </div>
+      <div class="top-actions">
+        <button id="undoBtn" title="실행 취소">↶</button>
+        <button id="redoBtn" title="다시 실행">↷</button>
+        <button id="resetCameraBtn">카메라 초기화</button>
+        <button id="finishBtn" class="primary">완성</button>
+      </div>
+    </header>
+
+    <div class="workspace">
+      <aside class="asset-panel panel">
+        <div class="mission-card">
+          <strong id="missionTitle"></strong>
+          <p id="missionDesc"></p>
+          <div id="missionProgress"></div>
+        </div>
+
+        <div class="category-tabs" id="categoryTabs"></div>
+        <div id="assetGrid" class="asset-grid"></div>
+      </aside>
+
+      <section class="stage-shell">
+        <div id="stage" class="stage" aria-label="3D 미니룸 편집 영역">
+          <canvas id="roomCanvas"></canvas>
+          <div id="bubbleLayer" class="bubble-layer"></div>
+          <div class="stage-help">
+            <span>객체 선택 후 드래그하여 이동</span>
+            <span>빈 공간 드래그: 카메라 회전</span>
+            <span>휠/두 손가락: 확대·축소</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="property-panel panel">
+        <h2>선택한 요소</h2>
+        <div id="emptySelection" class="empty-selection">미니룸의 요소를 선택하세요.</div>
+        <div id="objectControls" class="hidden">
+          <strong id="selectedName"></strong>
+
+          <div class="placement-row">
+            <label for="placementSelect">배치 면</label>
+            <select id="placementSelect">
+              <option value="floor">바닥</option>
+              <option value="leftWall">왼쪽 벽</option>
+              <option value="backWall">뒷벽</option>
+            </select>
+          </div>
+
+          <div class="control-grid">
+            <button id="rotateLeftBtn">↺ 회전</button>
+            <button id="rotateRightBtn">↻ 회전</button>
+            <button id="scaleDownBtn">－ 축소</button>
+            <button id="scaleUpBtn">＋ 확대</button>
+            <button id="duplicateBtn">⧉ 복제</button>
+            <button id="deleteBtn" class="danger">삭제</button>
+          </div>
+
+          <div id="animationControls" class="subpanel hidden">
+            <h3>애니메이션</h3>
+            <div class="control-grid">
+              <button id="playBtn">▶ 재생</button>
+              <button id="pauseBtn">Ⅱ 정지</button>
+              <button data-speed="0.5">느리게</button>
+              <button data-speed="1">보통</button>
+              <button data-speed="1.8">빠르게</button>
+              <button id="toggleLoopBtn">반복</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="bubble-controls">
+          <h2>말풍선</h2>
+          <div class="bubble-type-grid">
+            <button data-bubble-type="normal">💬 일반</button>
+            <button data-bubble-type="thought">☁ 생각</button>
+            <button data-bubble-type="question">❓ 질문</button>
+            <button data-bubble-type="emphasis">❗ 강조</button>
+          </div>
+          <p>말풍선을 더블클릭/더블탭하면 내용을 수정할 수 있습니다.</p>
+        </div>
+
+        <div class="room-controls">
+          <h2>방 스타일</h2>
+          <div class="control-grid">
+            <button data-room="mint">민트</button>
+            <button data-room="peach">피치</button>
+            <button data-room="lavender">라벤더</button>
+            <button data-room="sky">스카이</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <section id="resultScreen" class="screen result-screen hidden">
+    <div class="result-card">
+      <div class="result-meta">
+        <div>
+          <span>학번</span>
+          <strong id="resultNumber"></strong>
+        </div>
+        <div>
+          <span>이름</span>
+          <strong id="resultName"></strong>
+        </div>
+        <div>
+          <span>학습주제</span>
+          <strong id="resultTopic"></strong>
+        </div>
+        <div>
+          <span>완성일</span>
+          <strong id="resultDate"></strong>
+        </div>
+      </div>
+      <div class="result-summary">
+        <div><span>미니미</span><strong id="summaryCharacters">0</strong></div>
+        <div><span>시설</span><strong id="summaryFacilities">0</strong></div>
+        <div><span>학습 요소</span><strong id="summaryEducation">0</strong></div>
+        <div><span>말풍선</span><strong id="summaryBubbles">0</strong></div>
+      </div>
+      <div id="resultPreview" class="result-preview"></div>
+      <div class="result-actions">
+        <button id="backEditBtn">다시 편집</button>
+        <button id="saveImageBtn" class="primary">PNG 이미지 저장</button>
+        <button id="newProjectBtn">새 프로젝트</button>
+      </div>
+    </div>
+  </section>
+
+  <template id="bubbleTemplate">
+    <div class="speech-bubble" tabindex="0">
+      <button class="bubble-delete" aria-label="말풍선 삭제">×</button>
+      <div class="bubble-text">이곳에 생각을 적어 보세요.</div>
+      <select class="bubble-link" aria-label="캐릭터 연결">
+        <option value="">자유 배치</option>
+      </select>
+    </div>
+  </template>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
