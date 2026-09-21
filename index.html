@@ -7,66 +7,92 @@
   <title>정치 참여를 유도하는 명언 만들기 활동지</title>
   <style>
     :root {
-      --ink:#1f2937;
+      --ink:#334155;
       --muted:#64748b;
-      --line:#dbe3ec;
+      --line:#d8e3ee;
       --paper:#ffffff;
-      --bg:#f3f6f8;
-      --accent:#2f6f5e;
-      --accent-soft:#e8f4ef;
-      --accent-2:#e9a23b;
-      --accent-2-soft:#fff5df;
-      --danger:#9f3131;
-      --shadow:0 14px 38px rgba(31,41,55,.10);
-      --radius:18px;
+      --accent:#67c5bb;
+      --accent-strong:#46a397;
+      --accent-soft:#eefcf9;
+      --accent-2:#ffbf7d;
+      --danger:#c75a67;
+      --shadow:0 14px 36px rgba(73,92,125,.11);
+      --radius:22px;
     }
 
     * { box-sizing:border-box; }
     html { scroll-behavior:smooth; }
     body {
       margin:0;
-      font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      font-family:"Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
       color:var(--ink);
-      background:linear-gradient(180deg,#eef5f1 0,#f6f7f8 260px,#f3f6f8 100%);
-      line-height:1.65;
+      background:
+        radial-gradient(circle at top left, #fff3f8 0, transparent 20%),
+        radial-gradient(circle at top right, #eefcff 0, transparent 25%),
+        linear-gradient(180deg,#f8fcff 0,#fff9fb 200px,#f7fbff 100%);
+      line-height:1.66;
     }
 
     button, input, textarea, select { font:inherit; }
     button { cursor:pointer; }
-    .app { max-width:980px; margin:0 auto; padding:26px 18px 56px; }
+    .app { max-width:1080px; margin:0 auto; padding:24px 18px 56px; }
 
     .hero {
-      background:linear-gradient(135deg,#174f43,#2f6f5e 58%,#5f8f7f);
-      color:#fff;
-      border-radius:26px;
-      padding:30px 30px 26px;
-      box-shadow:var(--shadow);
       position:relative;
       overflow:hidden;
+      background:linear-gradient(135deg,#7ad2c8,#7daeff 55%, #b997ff);
+      color:#fff;
+      border-radius:30px;
+      padding:30px 30px 24px;
+      box-shadow:var(--shadow);
+      border:2px solid rgba(255,255,255,.23);
     }
+    .hero::before,
     .hero::after {
       content:"";
       position:absolute;
-      width:230px; height:230px;
       border-radius:50%;
-      right:-74px; top:-88px;
-      background:rgba(255,255,255,.08);
+      background:rgba(255,255,255,.12);
     }
-    .kicker { margin:0 0 6px; font-size:.86rem; font-weight:800; letter-spacing:.08em; opacity:.86; }
-    h1 { margin:0; font-size:clamp(1.65rem,5vw,2.55rem); line-height:1.23; letter-spacing:-.04em; }
-    .hero p { max-width:760px; margin:12px 0 0; color:#e9f5f0; }
-
-    .statusbar {
-      margin-top:18px;
-      display:flex; gap:10px; flex-wrap:wrap;
+    .hero::before { width:220px; height:220px; right:-58px; top:-72px; }
+    .hero::after { width:170px; height:170px; left:-36px; bottom:-50px; }
+    .hero-stars {
+      position:absolute; inset:0; pointer-events:none; opacity:.68;
+      background-image:
+        radial-gradient(circle at 14% 22%, rgba(255,255,255,.95) 0 2px, transparent 3px),
+        radial-gradient(circle at 28% 72%, rgba(255,255,255,.9) 0 1.8px, transparent 3px),
+        radial-gradient(circle at 64% 24%, rgba(255,255,255,.9) 0 1.8px, transparent 3px),
+        radial-gradient(circle at 78% 66%, rgba(255,255,255,.85) 0 1.8px, transparent 3px),
+        radial-gradient(circle at 90% 28%, rgba(255,255,255,.95) 0 2px, transparent 3px);
+    }
+    .kicker {
+      margin:0 0 8px;
+      font-size:.84rem;
+      font-weight:900;
+      letter-spacing:.08em;
+      display:inline-flex;
       align-items:center;
+      gap:6px;
+      padding:6px 11px;
+      border-radius:999px;
+      background:rgba(255,255,255,.18);
+      backdrop-filter:blur(6px);
     }
+    h1 {
+      margin:0;
+      font-size:clamp(1.72rem,4.6vw,2.55rem);
+      line-height:1.2;
+      letter-spacing:-.04em;
+    }
+    .hero p { max-width:760px; margin:12px 0 0; color:#f6fbff; }
+    .statusbar { margin-top:18px; display:flex; gap:10px; flex-wrap:wrap; }
     .status-chip {
-      padding:6px 10px;
-      border:1px solid rgba(255,255,255,.25);
+      padding:7px 11px;
       border-radius:999px;
       font-size:.83rem;
-      background:rgba(255,255,255,.09);
+      background:rgba(255,255,255,.16);
+      border:1px solid rgba(255,255,255,.22);
+      font-weight:800;
     }
 
     .toolbar {
@@ -77,120 +103,146 @@
       padding:10px;
       background:rgba(255,255,255,.93);
       border:1px solid var(--line);
-      backdrop-filter:blur(12px);
-      border-radius:16px;
+      backdrop-filter:blur(10px);
+      border-radius:18px;
       display:flex;
       gap:8px;
       flex-wrap:wrap;
-      box-shadow:0 7px 24px rgba(31,41,55,.08);
+      box-shadow:0 10px 22px rgba(97,115,148,.10);
     }
     .toolbar button {
       border:0;
-      border-radius:12px;
+      border-radius:14px;
       padding:10px 14px;
-      font-weight:800;
-      background:#edf2f4;
-      color:var(--ink);
+      font-weight:900;
+      background:#edf4ff;
+      color:#334155;
     }
-    .toolbar .primary { background:var(--accent); color:#fff; }
-    .toolbar .warn { background:#fff0f0; color:var(--danger); }
-    .save-state { margin-left:auto; align-self:center; font-size:.83rem; color:var(--muted); padding:0 5px; }
+    .toolbar .primary { background:linear-gradient(135deg,#5fc9bc,#7aa8ff); color:#fff; }
+    .toolbar .warn { background:#fff0f4; color:var(--danger); }
+    .save-state {
+      margin-left:auto;
+      align-self:center;
+      font-size:.83rem;
+      color:var(--muted);
+      padding:0 6px;
+      font-weight:700;
+    }
 
     .sheet {
-      background:var(--paper);
+      background:rgba(255,255,255,.97);
       border:1px solid var(--line);
       border-radius:var(--radius);
       padding:28px;
       margin-bottom:18px;
-      box-shadow:0 8px 26px rgba(31,41,55,.055);
+      box-shadow:0 10px 28px rgba(110,131,165,.08);
       break-inside:avoid;
+      position:relative;
+      overflow:hidden;
+    }
+    .sheet::before {
+      content:"";
+      position:absolute;
+      width:120px; height:120px;
+      right:-20px; bottom:-30px;
+      background:radial-gradient(circle, rgba(185,151,255,.12), transparent 70%);
+      pointer-events:none;
     }
     .section-number {
-      display:inline-flex; width:34px; height:34px;
+      display:inline-flex;
+      width:36px; height:36px;
       align-items:center; justify-content:center;
-      border-radius:11px;
-      background:var(--accent);
+      border-radius:12px;
+      background:linear-gradient(135deg,#66c9bf,#8ea7ff);
       color:#fff;
       font-weight:900;
       margin-right:8px;
+      box-shadow:0 6px 12px rgba(102,201,191,.18);
     }
     h2 { display:flex; align-items:center; margin:0 0 18px; font-size:1.28rem; letter-spacing:-.025em; }
     h3 { margin:18px 0 9px; font-size:1rem; }
 
-    .student-grid, .two-col, .three-col, .customizer-grid { display:grid; gap:12px; }
+    .student-grid, .two-col, .three-col, .concept-grid, .quote-grid, .compact-tools, .mini-grid { display:grid; gap:12px; }
     .student-grid { grid-template-columns:1fr 1fr 1.3fr; }
     .two-col { grid-template-columns:1fr 1fr; }
     .three-col { grid-template-columns:repeat(3,1fr); }
-    .customizer-grid { grid-template-columns:1.05fr .95fr; align-items:start; }
+    .concept-grid { grid-template-columns:repeat(3,1fr); }
+    .quote-grid { grid-template-columns:1fr 1fr; }
+    .compact-tools { grid-template-columns:repeat(4,1fr); }
+    .mini-grid { grid-template-columns:repeat(4,1fr); }
 
     label.field { display:block; font-weight:800; font-size:.92rem; }
     .field span { display:block; margin-bottom:6px; }
     input[type="text"], textarea, select {
       width:100%;
-      border:1.5px solid #cbd5e1;
-      border-radius:12px;
+      border:1.5px solid #d6e1eb;
+      border-radius:14px;
       background:#fff;
-      padding:12px 13px;
+      padding:11px 12px;
       outline:none;
       transition:.2s border-color,.2s box-shadow;
     }
     input[type="color"] {
-      width:100%; height:46px;
-      border:1.5px solid #cbd5e1;
+      width:100%; height:44px;
+      border:1.5px solid #d6e1eb;
       border-radius:12px;
       padding:4px;
       background:#fff;
       outline:none;
     }
-    input:focus, textarea:focus, select:focus { border-color:var(--accent); box-shadow:0 0 0 4px rgba(47,111,94,.11); }
+    input[type="range"] { width:100%; }
+    input:focus, textarea:focus, select:focus { border-color:#7aa8ff; box-shadow:0 0 0 4px rgba(122,168,255,.13); }
     textarea { resize:vertical; min-height:92px; }
-    .large { min-height:136px; }
+    .large { min-height:120px; }
 
-    .concept-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
     .concept {
-      border:1px solid var(--line);
-      border-radius:15px;
+      border:1px solid #dde9ef;
+      border-radius:18px;
       padding:16px;
-      background:#fbfcfc;
+      background:linear-gradient(180deg,#fff,#fbfeff);
     }
-    .concept b { display:block; margin-bottom:6px; color:#184f43; }
+    .concept b { display:block; margin-bottom:6px; color:#2b7b74; }
     .concept p { margin:0; font-size:.92rem; color:#475569; }
 
     .source-note {
       margin-top:14px;
       padding:12px 14px;
-      border-left:4px solid var(--accent-2);
-      background:var(--accent-2-soft);
-      border-radius:0 12px 12px 0;
+      border-left:5px solid var(--accent-2);
+      background:#fff4e8;
+      border-radius:0 14px 14px 0;
       font-size:.9rem;
-      color:#5c4b30;
+      color:#70553b;
+      font-weight:700;
+    }
+    .prompt {
+      margin:0 0 10px;
+      padding:12px 14px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#ecfbf8,#f4f0ff);
+      color:#335967;
+      font-weight:800;
+      border:1px solid #dfebef;
     }
 
-    .quote-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
     .quote-card {
       position:relative;
-      border:1.5px solid var(--line);
-      border-radius:16px;
+      border:1.5px solid #dde7ef;
+      border-radius:18px;
       padding:17px 17px 15px;
-      background:#fff;
+      background:linear-gradient(180deg,#fff,#fbfdff);
       transition:.18s transform,.18s border-color,.18s box-shadow;
       cursor:pointer;
       min-height:142px;
     }
-    .quote-card:hover { transform:translateY(-2px); border-color:#9fb8af; }
-    .quote-card:has(input:checked) { border-color:var(--accent); box-shadow:0 0 0 3px rgba(47,111,94,.10); background:#f7fbf9; }
-    .quote-card input { position:absolute; right:14px; top:14px; accent-color:var(--accent); width:19px; height:19px; }
+    .quote-card:hover { transform:translateY(-3px); border-color:#b4c8ff; box-shadow:0 8px 18px rgba(133,158,201,.10); }
+    .quote-card:has(input:checked) {
+      border-color:#70b8b1;
+      box-shadow:0 0 0 4px rgba(112,184,177,.11);
+      background:linear-gradient(180deg,#f8fffe,#f9f6ff);
+    }
+    .quote-card input { position:absolute; right:14px; top:14px; accent-color:#63bcb4; width:19px; height:19px; }
     .quote-text { margin:0 32px 16px 0; font-size:1.02rem; font-weight:800; letter-spacing:-.015em; }
     .quote-by { font-size:.86rem; color:var(--muted); }
-
-    .prompt {
-      margin:0 0 10px;
-      padding:12px 14px;
-      border-radius:13px;
-      background:var(--accent-soft);
-      color:#234f44;
-      font-weight:700;
-    }
 
     .builder {
       display:grid;
@@ -198,185 +250,331 @@
       gap:10px;
       margin-bottom:14px;
     }
-    .builder > div,
-    .design-panel,
-    .poster-panel {
-      border:1px dashed #aebfc6;
-      border-radius:16px;
+    .builder > div, .toolbox, .poster-panel, details.extra-panel {
+      border:1px dashed #c9d7e4;
+      border-radius:18px;
       padding:14px;
-      background:#fafcfc;
+      background:linear-gradient(180deg,#ffffff,#fbfdff);
     }
-    .builder > div small,
-    .design-panel small,
-    .poster-panel small {
-      display:block; color:var(--muted); margin-bottom:5px;
-    }
+    .builder small, .toolbox small, .poster-panel small, details.extra-panel small { display:block; color:var(--muted); margin-bottom:5px; }
 
-    .design-grid {
+    .toolbox {
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      margin-top:12px;
+      padding:10px 12px;
+    }
+    .toolbox h3 { margin:0; font-size:.98rem; }
+    .tool-topline {
       display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:8px;
     }
-
-    .preview-wrap {
-      margin-top:15px;
-      padding:0;
+    .tool-insert-row {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:8px;
     }
+    .tool-pair {
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:6px;
+      align-items:end;
+    }
+    .tool-pair .field span { font-size:.8rem; margin-bottom:4px; }
+    .tool-pair select { padding:9px 10px; font-size:.88rem; }
+    .tool-pair button { padding:9px 10px; }
+    .tool-group button,
+    .tool-actions button,
+    .chip-row button {
+      border:0;
+      border-radius:12px;
+      padding:10px 12px;
+      font-weight:900;
+      background:#edf6ff;
+      color:#334155;
+      white-space:nowrap;
+    }
+    .tool-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .tool-actions button { padding:8px 10px; font-size:.86rem; }
+    .tool-actions button.active-mode { background:#d9f6f1; color:#25635c; }
+    .tool-actions .danger { background:#fff0f4; color:var(--danger); }
+    .tool-note { font-size:.83rem; color:var(--muted); font-weight:700; }
 
-    .poster-preview {
-      --poster-bg:#f7fbf7;
-      --poster-text:#174f43;
-      --poster-border:#2f6f5e;
-      --poster-accent:#f0b54a;
-      position:relative;
-      min-height:320px;
-      border:4px solid var(--poster-border);
-      border-radius:24px;
-      background:linear-gradient(135deg,var(--poster-bg),#ffffff 55%);
-      overflow:hidden;
-      padding:28px 24px;
+    details.extra-panel summary {
+      cursor:pointer;
+      list-style:none;
+      font-weight:900;
       display:flex;
       align-items:center;
-      justify-content:center;
-      text-align:center;
-      box-shadow:0 10px 24px rgba(31,41,55,.08);
+      gap:8px;
     }
-    .poster-preview.frame-dashed { border-style:dashed; }
-    .poster-preview.frame-double { border-style:double; border-width:6px; }
-    .poster-preview.frame-soft { border-radius:36px; box-shadow:inset 0 0 0 10px rgba(255,255,255,.38), 0 10px 24px rgba(31,41,55,.08); }
-    .poster-preview.frame-ribbon::after {
-      content:"참여해요";
+    details.extra-panel summary::-webkit-details-marker { display:none; }
+    details.extra-panel { padding:8px 10px; }
+    details.extra-panel summary { font-size:.9rem; }
+    details.extra-panel[open] summary { margin-bottom:8px; }
+
+    .helper-line {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      color:var(--muted);
+      font-size:.84rem;
+      margin-top:6px;
+      font-weight:700;
+    }
+
+    .poster-panel { margin-top:14px; }
+    .poster-stage {
+      position:relative;
+      width:100%;
+      aspect-ratio:16 / 9;
+      min-height:320px;
+      border:1px solid #dfe8f1;
+      border-radius:24px;
+      overflow:hidden;
+      background:#fff;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);
+    }
+    .poster-stage.stage-sky {
+      background:linear-gradient(135deg,#f2fbff,#ffffff 56%);
+    }
+    .poster-stage.stage-mint {
+      background:linear-gradient(135deg,#f4fffb,#ffffff 56%);
+    }
+    .poster-stage.stage-peach {
+      background:linear-gradient(135deg,#fff7ef,#ffffff 56%);
+    }
+    .poster-stage.stage-lavender {
+      background:linear-gradient(135deg,#f7f4ff,#ffffff 56%);
+    }
+    .poster-stage.pattern-dots::before,
+    .poster-stage.pattern-hearts::before,
+    .poster-stage.pattern-stars::before,
+    .poster-stage.pattern-grid::before,
+    .poster-stage.pattern-confetti::before {
+      content:"";
       position:absolute;
-      top:14px; right:-34px;
+      inset:0;
+      opacity:.34;
+      z-index:0;
+      pointer-events:none;
+    }
+    .poster-stage.pattern-dots::before {
+      background-image:radial-gradient(circle, var(--poster-accent) 1.4px, transparent 1.4px);
+      background-size:24px 24px;
+    }
+    .poster-stage.pattern-hearts::before {
+      background-image:
+        radial-gradient(circle at 25% 30%, var(--poster-accent) 0 2px, transparent 2.5px),
+        radial-gradient(circle at 75% 70%, rgba(255,143,177,.82) 0 2px, transparent 2.5px),
+        radial-gradient(circle at 55% 25%, rgba(122,168,255,.82) 0 2px, transparent 2.5px);
+      background-size:110px 90px;
+    }
+    .poster-stage.pattern-stars::before {
+      background-image:
+        radial-gradient(circle at 20% 25%, var(--poster-accent) 0 2px, transparent 2.5px),
+        radial-gradient(circle at 72% 34%, rgba(174,157,255,.8) 0 2px, transparent 2.5px),
+        radial-gradient(circle at 36% 75%, rgba(122,168,255,.8) 0 2px, transparent 2.5px),
+        radial-gradient(circle at 82% 74%, var(--poster-accent) 0 2px, transparent 2.5px);
+      background-size:120px 100px;
+    }
+    .poster-stage.pattern-grid::before {
+      background-image:
+        linear-gradient(rgba(97,189,181,.18) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(97,189,181,.18) 1px, transparent 1px);
+      background-size:26px 26px;
+    }
+    .poster-stage.pattern-confetti::before {
+      background-image:
+        radial-gradient(circle at 15% 24%, rgba(255,143,177,.9) 0 2px, transparent 2.5px),
+        radial-gradient(circle at 75% 22%, rgba(122,168,255,.9) 0 2px, transparent 2.5px),
+        radial-gradient(circle at 35% 65%, rgba(255,189,123,.95) 0 2px, transparent 2.5px),
+        radial-gradient(circle at 82% 70%, rgba(97,189,181,.95) 0 2px, transparent 2.5px),
+        radial-gradient(circle at 50% 82%, rgba(174,157,255,.95) 0 2px, transparent 2.5px);
+      background-size:96px 96px;
+    }
+
+    .poster-stage.frame-solid { border:4px solid var(--poster-border); }
+    .poster-stage.frame-dashed { border:4px dashed var(--poster-border); }
+    .poster-stage.frame-double { border:6px double var(--poster-border); }
+    .poster-stage.frame-soft { border:4px solid var(--poster-border); border-radius:34px; box-shadow:inset 0 0 0 8px rgba(255,255,255,.42); }
+    .poster-stage.frame-ribbon::after {
+      content:attr(data-ribbon);
+      position:absolute;
+      top:14px; right:-30px;
       background:var(--poster-accent);
-      color:#253042;
+      color:#3d4252;
       padding:6px 40px;
       font-size:.78rem;
       font-weight:900;
       transform:rotate(35deg);
       box-shadow:0 8px 18px rgba(0,0,0,.10);
+      z-index:5;
+      white-space:nowrap;
     }
 
-    .poster-inner {
-      position:relative;
+    .poster-canvas { position:relative; width:100%; height:100%; z-index:1; }
+
+    .quote-card-movable {
+      position:absolute;
+      left:50%; top:50%;
+      transform:translate(-50%,-50%);
+      width:min(74%, 660px);
+      min-height:120px;
+      background:rgba(255,255,255,.72);
+      backdrop-filter:blur(2px);
+      border:1px solid rgba(255,255,255,.72);
+      border-radius:24px;
+      padding:18px 22px 16px;
+      text-align:center;
+      box-shadow:0 10px 20px rgba(0,0,0,.08);
       z-index:3;
-      width:100%;
-      max-width:500px;
-      background:rgba(255,255,255,.55);
-      border-radius:20px;
-      padding:18px 18px 16px;
-      backdrop-filter:blur(1.5px);
+      cursor:grab;
+      user-select:none;
     }
-    .poster-caption {
-      margin:0 0 10px;
-      font-size:.86rem;
-      font-weight:900;
-      letter-spacing:.06em;
-      color:color-mix(in srgb, var(--poster-text) 80%, #334155 20%);
+    .quote-card-movable.selected { outline:3px dashed rgba(70,163,151,.45); }
+    .quote-label { margin:0 0 8px; font-size:.84rem; font-weight:900; color:#6b7c8e; letter-spacing:.08em; }
+    .quote-badge {
+      display:inline-block;
+      padding:6px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(103,197,187,.22);
+      color:#4f6379;
+      font-size:.8rem;
+      font-weight:800;
+      margin-bottom:10px;
     }
-    .poster-quote {
+    .quote-main {
       margin:0;
       font-weight:900;
-      font-size:clamp(1.2rem,3.6vw,1.84rem);
+      font-size:30px;
+      line-height:1.42;
       letter-spacing:-.03em;
-      line-height:1.45;
       color:var(--poster-text);
       word-break:keep-all;
     }
-    .poster-quote.placeholder { color:#83928d; }
-    .poster-subtext {
-      margin:12px 0 0;
-      font-size:.9rem;
-      color:#475569;
-      font-weight:700;
-    }
+    .quote-main.placeholder { color:#8b98a5; }
+    .quote-sub { margin:10px 0 0; font-size:.92rem; color:#5d6d7d; font-weight:700; }
 
-    .poster-character {
+    .poster-items { position:absolute; inset:0; z-index:2; }
+    .poster-item {
       position:absolute;
-      z-index:2;
-      font-size:48px;
-      line-height:1;
-      filter:drop-shadow(0 4px 8px rgba(0,0,0,.08));
-    }
-    .poster-character.left { left:18px; bottom:18px; }
-    .poster-character.right { right:18px; bottom:18px; }
-
-    .poster-decor {
-      position:absolute;
-      z-index:1;
-      color:var(--poster-accent);
-      opacity:.95;
-      font-weight:900;
-      white-space:pre-line;
-      line-height:1.2;
-      text-shadow:0 2px 0 rgba(255,255,255,.45);
+      width:84px;
+      height:84px;
+      transform:translate(-50%,-50%);
+      cursor:grab;
       user-select:none;
+      touch-action:none;
+      z-index:2;
     }
-    .poster-decor.top { top:12px; left:50%; transform:translateX(-50%); font-size:24px; text-align:center; }
-    .poster-decor.bottom { bottom:12px; left:50%; transform:translateX(-50%); font-size:22px; text-align:center; }
-    .poster-decor.left { left:14px; top:50%; transform:translateY(-50%); font-size:22px; text-align:center; }
-    .poster-decor.right { right:14px; top:50%; transform:translateY(-50%); font-size:22px; text-align:center; }
+    .poster-item.character { width:118px; height:130px; }
+    .poster-item.badge {
+      width:auto; height:auto; min-width:86px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:#fff;
+      border:2px solid rgba(0,0,0,.06);
+      font-weight:900;
+      font-size:.92rem;
+      color:#4b5563;
+      box-shadow:0 8px 16px rgba(0,0,0,.08);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      white-space:nowrap;
+    }
+    .poster-item.selected {
+      outline:3px dashed rgba(70,163,151,.45);
+      outline-offset:4px;
+      border-radius:16px;
+      z-index:4;
+    }
+    .poster-item svg { width:100%; height:100%; display:block; }
+    .poster-item.badge.selected { border-radius:999px; }
+
+    .chip-row {
+      display:flex; gap:8px; flex-wrap:wrap; align-items:center;
+    }
+    .chip-row .hint {
+      padding:7px 10px;
+      border-radius:999px;
+      background:#f5f8fb;
+      border:1px solid #e0e8f0;
+      font-size:.82rem;
+      color:#61748a;
+      font-weight:800;
+    }
 
     .style-summary {
       margin-top:10px;
       font-size:.86rem;
       color:var(--muted);
       text-align:center;
+      font-weight:800;
     }
 
     .checklist { display:grid; gap:9px; }
     .checkitem {
       display:flex; gap:10px; align-items:flex-start;
       padding:11px 12px;
-      border:1px solid var(--line);
-      border-radius:12px;
-      background:#fbfcfc;
+      border:1px solid #e1eaf2;
+      border-radius:14px;
+      background:#fbfcff;
     }
-    .checkitem input { margin-top:5px; width:18px; height:18px; accent-color:var(--accent); }
+    .checkitem input { margin-top:5px; width:18px; height:18px; accent-color:#63bcb4; }
 
     .mini-rubric { width:100%; border-collapse:collapse; margin-top:12px; font-size:.91rem; }
-    .mini-rubric th, .mini-rubric td { border:1px solid var(--line); padding:10px; vertical-align:top; }
-    .mini-rubric th { background:#f2f7f5; color:#214d43; }
+    .mini-rubric th, .mini-rubric td { border:1px solid #dee8f1; padding:10px; vertical-align:top; }
+    .mini-rubric th { background:#f4fbfa; color:#3f6d6b; }
 
-    .footer-note { text-align:center; color:var(--muted); font-size:.82rem; margin-top:18px; }
+    .footer-note { text-align:center; color:var(--muted); font-size:.82rem; margin-top:18px; font-weight:700; }
 
     .toast {
       position:fixed; left:50%; bottom:22px; transform:translateX(-50%) translateY(20px);
-      background:#162d27; color:#fff; padding:10px 14px; border-radius:999px;
+      background:#314054; color:#fff; padding:10px 14px; border-radius:999px;
       font-size:.88rem; opacity:0; pointer-events:none; transition:.25s; z-index:30;
       box-shadow:0 10px 30px rgba(0,0,0,.18);
     }
     .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
-    @media (max-width:760px) {
+    @media (max-width:900px) {
       .app { padding:14px 12px 42px; }
-      .hero, .sheet { padding:21px 17px; border-radius:18px; }
-      .student-grid, .two-col, .three-col, .concept-grid, .quote-grid, .builder, .customizer-grid, .design-grid { grid-template-columns:1fr; }
+      .hero, .sheet { padding:20px 17px; border-radius:20px; }
+      .student-grid, .two-col, .three-col, .concept-grid, .quote-grid, .compact-tools, .mini-grid, .builder, .tool-topline, .tool-insert-row { grid-template-columns:1fr; }
       .toolbar { position:relative; }
       .toolbar button { flex:1 1 135px; }
       .save-state { width:100%; text-align:center; margin-left:0; }
-      .poster-preview { min-height:290px; }
+      .quote-card-movable { width:min(82%, 660px); }
+      .tool-group { grid-template-columns:1fr; }
+      .poster-stage { min-height:250px; }
+      .poster-item { width:68px; height:68px; }
+      .poster-item.character { width:100px; height:110px; }
     }
 
     @page { size:A4; margin:12mm; }
     @media print {
-      body { background:#fff; font-size:10.5pt; line-height:1.48; }
+      body { background:#fff; font-size:10.5pt; line-height:1.5; }
       .app { max-width:none; padding:0; }
       .hero { box-shadow:none; border-radius:0; padding:14mm 12mm 10mm; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-      .hero::after, .toolbar, .toast, .no-print { display:none !important; }
-      .sheet { box-shadow:none; border:1px solid #cfd8df; border-radius:0; margin:0 0 7mm; padding:8mm; }
+      .hero::before, .hero::after, .hero-stars, .toolbar, .toast, .no-print { display:none !important; }
+      .sheet { box-shadow:none; border:1px solid #d1dbe4; border-radius:0; margin:0 0 7mm; padding:8mm; }
       .student-grid { grid-template-columns:1fr 1fr 1.3fr; }
       .concept-grid { grid-template-columns:repeat(3,1fr); }
       .quote-grid { grid-template-columns:1fr 1fr; }
       .builder { grid-template-columns:repeat(3,1fr); }
-      .customizer-grid { grid-template-columns:1fr; }
-      .design-grid { grid-template-columns:1fr 1fr; }
-      input[type="text"], textarea, select { border:1px solid #aeb7bd; box-shadow:none !important; background:#fff; color:#111827; }
-      input[type="color"] { border:1px solid #aeb7bd; }
+      input[type="text"], textarea, select, input[type="color"] { border:1px solid #b8c5d2; box-shadow:none !important; background:#fff; color:#111827; }
       textarea { min-height:70px; }
-      .large { min-height:100px; }
+      .large { min-height:90px; }
+      .poster-stage, .hero { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
       .quote-card { break-inside:avoid; }
-      .poster-preview, .poster-inner, .hero { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
       .footer-note { margin-top:4mm; }
     }
   </style>
@@ -384,15 +582,16 @@
 <body>
   <main class="app">
     <header class="hero">
-      <p class="kicker">사회 · 민주주의와 시민</p>
+      <div class="hero-stars"></div>
+      <p class="kicker">✨ 사회 · 민주주의와 시민</p>
       <h1>정치 참여를 유도하는 명언 만들기</h1>
-      <p>현대 민주주의에서 시민의 정치 참여가 왜 중요한지 생각하고, 다른 사람의 참여를 권하는 나만의 한 문장을 만든 뒤 포스터처럼 꾸며 봅니다.</p>
+      <p>현대 민주주의에서 시민의 정치 참여가 왜 중요한지 생각하고, 다른 사람의 참여를 권하는 나만의 한 문장을 만든 뒤 가로형 포스터로 꾸며 봅니다.</p>
       <div class="statusbar">
         <span class="status-chip">개인 활동</span>
         <span class="status-chip">권장 20~25분</span>
         <span class="status-chip">자동 저장</span>
         <span class="status-chip">PDF 제출 가능</span>
-        <span class="status-chip">꾸미기 기능 추가</span>
+        <span class="status-chip">자유 배치 가능</span>
       </div>
     </header>
 
@@ -421,7 +620,7 @@
         </article>
         <article class="concept">
           <b>대의제의 한계</b>
-          <p>시민의 뜻이 대표자를 통해 간접적으로 전달되므로 의견이 정확히 반영되지 않을 수 있고, 참여 수단이 제한적이라고 느낄 수 있습니다.</p>
+          <p>시민의 뜻이 대표자를 통해 간접적으로 전달되므로 의견이 정확히 반영되지 않을 수 있고, 참여 수단이 제한적일 수 있습니다.</p>
         </article>
         <article class="concept">
           <b>정치적 무관심</b>
@@ -488,82 +687,146 @@
 
       <label class="field">
         <span>나만의 명언</span>
-        <textarea id="myQuote" class="large" maxlength="120" placeholder="짧고 기억하기 쉬운 한 문장으로 작성하세요. 예: 관심 없는 한 표보다, 생각하는 한 사람이 민주주의를 움직인다."></textarea>
+        <textarea id="myQuote" class="large" maxlength="120" placeholder="짧고 기억하기 쉬운 한 문장으로 작성하세요. 예: 생각하고 참여하는 시민 한 사람이 민주주의를 더 단단하게 만든다."></textarea>
       </label>
-      <div style="display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:.84rem;margin-top:5px;">
+      <div class="helper-line">
         <span>권장 길이: 15~50자</span><span><b id="charCount">0</b>/120자</span>
       </div>
 
-      <div class="customizer-grid" style="margin-top:16px;">
-        <div class="design-panel">
-          <small>꾸미기 설정</small>
-          <div class="design-grid">
-            <label class="field"><span>왼쪽 캐릭터</span>
-              <select id="charLeft">
-                <option value="">없음</option>
-                <option value="🧑‍🎓">학생</option>
-                <option value="👧">여학생</option>
-                <option value="👦">남학생</option>
-                <option value="🧑">시민</option>
-                <option value="🦉">지혜 캐릭터</option>
-              </select>
-            </label>
-            <label class="field"><span>오른쪽 캐릭터</span>
-              <select id="charRight">
-                <option value="">없음</option>
-                <option value="🧑‍🎓">학생</option>
-                <option value="👧">여학생</option>
-                <option value="👦">남학생</option>
-                <option value="🧑">시민</option>
-                <option value="🐣">응원 캐릭터</option>
-              </select>
-            </label>
-            <label class="field"><span>주변 장식</span>
-              <select id="decorStyle">
-                <option value="none">없음</option>
-                <option value="star">별 장식</option>
-                <option value="speech">말풍선 장식</option>
-                <option value="vote">참여·투표 장식</option>
-                <option value="leaf">꽃·잎 장식</option>
-                <option value="sparkle">반짝 장식</option>
-              </select>
-            </label>
-            <label class="field"><span>테두리 스타일</span>
-              <select id="frameStyle">
-                <option value="solid">기본</option>
-                <option value="dashed">점선</option>
-                <option value="double">이중선</option>
-                <option value="soft">둥근 테두리</option>
-                <option value="ribbon">리본 테마</option>
-              </select>
-            </label>
-            <label class="field"><span>글자색</span><input id="quoteTextColor" type="color" value="#174f43" /></label>
-            <label class="field"><span>배경색</span><input id="quoteBgColor" type="color" value="#f7fbf7" /></label>
-            <label class="field"><span>테두리색</span><input id="quoteBorderColor" type="color" value="#2f6f5e" /></label>
-            <label class="field"><span>장식색</span><input id="accentColor" type="color" value="#f0b54a" /></label>
-          </div>
-          <label class="field" style="margin-top:10px;"><span>꾸밈 문구(선택)</span><input id="miniCaption" type="text" placeholder="예: 함께 만드는 민주주의" /></label>
+      <div class="toolbox no-print">
+        <h3>꾸미기 도구</h3>
+
+        <div class="tool-topline">
+          <label class="field"><span>테마</span>
+            <select id="themePreset">
+              <option value="mint">민트 스쿨</option>
+              <option value="peach">피치 팝</option>
+              <option value="lavender">라벤더 드림</option>
+              <option value="sky">스카이 메모</option>
+            </select>
+          </label>
+          <label class="field"><span>패턴</span>
+            <select id="bgPattern">
+              <option value="none">없음</option>
+              <option value="dots">도트</option>
+              <option value="hearts">하트</option>
+              <option value="stars">별</option>
+              <option value="grid">메모 그리드</option>
+              <option value="confetti">컨페티</option>
+            </select>
+          </label>
+          <label class="field"><span>테두리</span>
+            <select id="frameStyle">
+              <option value="solid">기본</option>
+              <option value="dashed">점선</option>
+              <option value="double">이중선</option>
+              <option value="soft">둥근 테두리</option>
+              <option value="ribbon">리본</option>
+            </select>
+          </label>
+          <label class="field"><span>글자 분위기</span>
+            <select id="fontMood">
+              <option value="rounded">둥글게</option>
+              <option value="strong">굵게</option>
+              <option value="neat">반듯하게</option>
+              <option value="cute">귀엽게</option>
+            </select>
+          </label>
         </div>
 
-        <div class="poster-panel">
-          <small>명언 포스터 미리보기</small>
-          <div class="preview-wrap">
-            <div id="posterPreview" class="poster-preview frame-solid" aria-live="polite">
-              <div id="decorTop" class="poster-decor top"></div>
-              <div id="decorLeft" class="poster-decor left"></div>
-              <div id="decorRight" class="poster-decor right"></div>
-              <div id="decorBottom" class="poster-decor bottom"></div>
-              <div id="charLeftView" class="poster-character left" aria-hidden="true"></div>
-              <div id="charRightView" class="poster-character right" aria-hidden="true"></div>
-              <div class="poster-inner">
-                <p class="poster-caption">내가 만든 정치 참여 명언</p>
-                <blockquote id="quotePreview" class="poster-quote placeholder">여기에 나만의 명언이 크게 표시됩니다.</blockquote>
-                <p id="quoteSubtext" class="poster-subtext">꾸밈 문구를 넣으면 이곳에 표시됩니다.</p>
-              </div>
-            </div>
-            <div id="styleSummary" class="style-summary">선택한 꾸미기: 기본 테두리 · 장식 없음 · 캐릭터 없음</div>
+        <div class="tool-insert-row">
+          <div class="tool-pair">
+            <label class="field"><span>스티커</span>
+              <select id="stickerPicker">
+                <option value="bearFace">말랑곰</option>
+                <option value="rabbitFace">몽실토끼</option>
+                <option value="catFace">복실냥</option>
+                <option value="chickFace">병아리</option>
+                <option value="voteBear">투표곰</option>
+                <option value="heartCloud">하트구름</option>
+                <option value="speechBubble">말풍선</option>
+                <option value="starBuddy">별친구</option>
+              </select>
+            </label>
+            <button type="button" onclick="addPosterItem('sticker')">추가</button>
+          </div>
+
+          <div class="tool-pair">
+            <label class="field"><span>캐릭터</span>
+              <select id="characterPicker">
+                <option value="studentBear">학생곰</option>
+                <option value="studentRabbit">학생토끼</option>
+                <option value="citizenCat">시민고양이</option>
+                <option value="cheerChick">응원병아리</option>
+              </select>
+            </label>
+            <button type="button" onclick="addPosterItem('character')">추가</button>
+          </div>
+
+          <div class="tool-pair">
+            <label class="field"><span>배지</span>
+              <select id="badgePicker">
+                <option value="참여해요!">참여해요!</option>
+                <option value="한 표의 힘">한 표의 힘</option>
+                <option value="관심이 시작!">관심이 시작!</option>
+                <option value="함께 만드는 민주주의">함께 만드는 민주주의</option>
+              </select>
+            </label>
+            <button type="button" onclick="addPosterItem('badge')">추가</button>
           </div>
         </div>
+
+        <div class="tool-actions">
+          <button type="button" id="moveModeBtn" class="active-mode" onclick="setToolMode('move')">이동</button>
+          <button type="button" onclick="transformSelected('bigger')">＋ 크게</button>
+          <button type="button" onclick="transformSelected('smaller')">－ 작게</button>
+          <button type="button" onclick="transformSelected('left')">↺</button>
+          <button type="button" onclick="transformSelected('right')">↻</button>
+          <button type="button" class="danger" onclick="deleteSelectedItem()">삭제</button>
+          <button type="button" class="danger" onclick="clearPosterItems()">전체삭제</button>
+        </div>
+
+        <details class="extra-panel">
+          <summary>세부 설정</summary>
+          <div class="mini-grid">
+            <label class="field"><span>정렬</span>
+              <select id="textAlign">
+                <option value="center">가운데</option>
+                <option value="left">왼쪽</option>
+                <option value="right">오른쪽</option>
+              </select>
+            </label>
+            <label class="field"><span>글자 크기</span><input id="fontSizeRange" type="range" min="20" max="42" step="1" value="30" /></label>
+            <label class="field"><span>글자색</span><input id="quoteTextColor" type="color" value="#214c48" /></label>
+            <label class="field"><span>배경색</span><input id="quoteBgColor" type="color" value="#f4fffb" /></label>
+            <label class="field"><span>테두리색</span><input id="quoteBorderColor" type="color" value="#67c5bb" /></label>
+            <label class="field"><span>장식색</span><input id="accentColor" type="color" value="#ffbf7d" /></label>
+            <label class="field"><span>리본 문구</span><input id="ribbonText" type="text" value="참여해요" /></label>
+            <label class="field"><span>꾸밈 문구</span><input id="miniCaption" type="text" placeholder="예: 함께 만드는 민주주의" /></label>
+          </div>
+          <div class="helper-line"><span>글자 크기</span><span><b id="fontSizeValue">30</b>px</span></div>
+        </details>
+        <div class="tool-note">포스터의 명언·스티커·캐릭터·배지를 눌러 자유롭게 이동할 수 있습니다.</div>
+      </div>
+
+      <div class="poster-panel">
+        <small>가로형 명언 포스터 미리보기</small>
+        <div id="posterStage" class="poster-stage stage-mint pattern-none frame-solid" data-ribbon="참여해요">
+          <div id="posterCanvas" class="poster-canvas">
+            <div id="posterItems" class="poster-items"></div>
+            <div id="quoteCard" class="quote-card-movable">
+              <p class="quote-label">내가 만든 정치 참여 명언</p>
+              <div class="quote-badge">정치 참여 포스터</div>
+              <blockquote id="quotePreview" class="quote-main placeholder">여기에 나만의 명언이 크게 표시됩니다.</blockquote>
+              <p id="quoteSubtext" class="quote-sub">꾸밈 문구를 넣으면 이곳에 표시됩니다.</p>
+            </div>
+          </div>
+        </div>
+        <div class="chip-row" style="margin-top:10px;">
+          <span class="hint">선택한 요소는 점선 테두리로 표시됩니다.</span>
+          <span class="hint">더블클릭 또는 ‘선택 삭제’로 지울 수 있습니다.</span>
+        </div>
+        <div id="styleSummary" class="style-summary">선택한 꾸미기: 민트 스쿨 · 가로형 포스터 · 배경 없음 · 자유 배치 사용 가능</div>
       </div>
 
       <label class="field" style="margin-top:14px;">
@@ -598,6 +861,7 @@
         <li>용지는 <b>A4</b>, 배율은 <b>기본값</b>으로 두는 것을 권장합니다.</li>
         <li>파일명을 <b>학번_이름_정치참여명언활동지.pdf</b>로 저장한 뒤 Google Classroom 과제에 첨부합니다.</li>
       </ol>
+      <p class="tool-note">스티커는 저작권 문제를 피하기 위해 특정 캐릭터를 직접 복제하지 않고, 말랑한 동글동글 감성의 오리지널 디자인으로 구성했습니다.</p>
     </section>
 
     <p class="footer-note">활동지 구성 근거: 미래엔 사회1 교과서 Ⅸ. 민주주의와 시민, ‘민주주의의 발전 방안’ 178~179쪽.</p>
@@ -606,13 +870,43 @@
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script>
-    const STORAGE_KEY = 'social_political_quote_worksheet_v2';
-    const valueIds = [
-      'studentNo','studentName','warmup','quoteReason','quoteMeaning','target','action','reason',
-      'myQuote','myQuoteExplain','charLeft','charRight','decorStyle','frameStyle',
-      'quoteTextColor','quoteBgColor','quoteBorderColor','accentColor','miniCaption'
+    const STORAGE_KEY = 'social_political_quote_worksheet_v4';
+    const fieldIds = [
+      'studentNo','studentName','warmup','quoteReason','quoteMeaning','target','action','reason','myQuote','myQuoteExplain',
+      'themePreset','bgPattern','frameStyle','fontMood','textAlign','fontSizeRange','quoteTextColor','quoteBgColor','quoteBorderColor','accentColor','ribbonText','miniCaption',
+      'stickerPicker','characterPicker','badgePicker'
     ];
     const checkIds = ['check1','check2','check3'];
+    const DEFAULTS = {
+      themePreset:'mint',
+      bgPattern:'none',
+      frameStyle:'solid',
+      fontMood:'rounded',
+      textAlign:'center',
+      fontSizeRange:'30',
+      quoteTextColor:'#214c48',
+      quoteBgColor:'#f4fffb',
+      quoteBorderColor:'#67c5bb',
+      accentColor:'#ffbf7d',
+      ribbonText:'참여해요',
+      stickerPicker:'bearFace',
+      characterPicker:'studentBear',
+      badgePicker:'참여해요!'
+    };
+    const THEMES = {
+      mint: { bg:'#f4fffb', text:'#214c48', border:'#67c5bb', accent:'#ffbf7d' },
+      peach: { bg:'#fff7ef', text:'#8b523b', border:'#f59e84', accent:'#ffd46f' },
+      lavender: { bg:'#f7f4ff', text:'#5f56a7', border:'#a190ff', accent:'#ff9dcb' },
+      sky: { bg:'#f1f8ff', text:'#375c87', border:'#7fb3ff', accent:'#63d1c2' }
+    };
+
+    let posterState = {
+      quoteCard: { x: 50, y: 50 },
+      items: [],
+      selectedId: 'quoteCard',
+      mode: 'move'
+    };
+    let dragInfo = null;
 
     function showToast(message) {
       const toast = document.getElementById('toast');
@@ -622,11 +916,23 @@
       showToast.timer = setTimeout(() => toast.classList.remove('show'), 1800);
     }
 
+    function sanitizeFilePart(value) {
+      return value.trim().replace(/[\\/:*?"<>|]/g,'').replace(/\s+/g,'_');
+    }
+
+    function updateFileName() {
+      const no = sanitizeFilePart(document.getElementById('studentNo').value);
+      const name = sanitizeFilePart(document.getElementById('studentName').value);
+      const parts = [no, name, '정치참여명언활동지'].filter(Boolean);
+      document.getElementById('filePreview').value = parts.join('_') + '.pdf';
+    }
+
     function currentData() {
       const data = {};
-      valueIds.forEach(id => data[id] = document.getElementById(id).value);
+      fieldIds.forEach(id => data[id] = document.getElementById(id).value);
       checkIds.forEach(id => data[id] = document.getElementById(id).checked);
       data.quote = document.querySelector('input[name="quote"]:checked')?.value || '';
+      data.posterState = posterState;
       return data;
     }
 
@@ -639,63 +945,338 @@
 
     function saveNow() { persist(false); }
 
-    function restore() {
-      try {
-        const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-        valueIds.forEach(id => {
-          if (typeof data[id] === 'string') document.getElementById(id).value = data[id];
-        });
-        checkIds.forEach(id => {
-          if (typeof data[id] === 'boolean') document.getElementById(id).checked = data[id];
-        });
-        if (data.quote) {
-          const radio = [...document.querySelectorAll('input[name="quote"]')].find(r => r.value === data.quote);
-          if (radio) radio.checked = true;
-        }
-        updatePreview();
-        updateFileName();
-        if (Object.keys(data).length) {
-          document.getElementById('saveState').textContent = '이전에 저장한 내용을 불러왔습니다.';
-        }
-      } catch (e) {
-        document.getElementById('saveState').textContent = '새 활동지';
+    function setToolMode(mode) {
+      posterState.mode = mode;
+      document.getElementById('moveModeBtn').classList.toggle('active-mode', mode === 'move');
+    }
+
+    function applyTheme(themeName) {
+      const theme = THEMES[themeName] || THEMES.mint;
+      document.getElementById('quoteBgColor').value = theme.bg;
+      document.getElementById('quoteTextColor').value = theme.text;
+      document.getElementById('quoteBorderColor').value = theme.border;
+      document.getElementById('accentColor').value = theme.accent;
+    }
+
+    function fontStyles(mood, size) {
+      const base = `${size}px`;
+      const styles = {
+        rounded: { fontSize:base, fontWeight:'900', letterSpacing:'-.03em', fontFamily:'Pretendard, "Noto Sans KR", sans-serif' },
+        strong: { fontSize:`${Number(size)+2}px`, fontWeight:'900', letterSpacing:'-.04em', fontFamily:'Pretendard, "Noto Sans KR", sans-serif' },
+        neat: { fontSize:`${Number(size)-1}px`, fontWeight:'800', letterSpacing:'-.01em', fontFamily:'"Malgun Gothic", "Apple SD Gothic Neo", sans-serif' },
+        cute: { fontSize:base, fontWeight:'800', letterSpacing:'-.02em', fontFamily:'"Trebuchet MS", "Apple SD Gothic Neo", sans-serif' }
+      };
+      return styles[mood] || styles.rounded;
+    }
+
+    function svgWrap(inner, bg='transparent') {
+      return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true"><rect width="100" height="100" rx="24" fill="${bg}" fill-opacity="0"></rect>${inner}</svg>`;
+    }
+
+    const STICKER_SVGS = {
+      bearFace: () => svgWrap(`
+        <ellipse cx="30" cy="26" rx="12" ry="11" fill="#d8b48b"/>
+        <ellipse cx="70" cy="26" rx="12" ry="11" fill="#d8b48b"/>
+        <circle cx="50" cy="50" r="30" fill="#efd8b6"/>
+        <circle cx="40" cy="57" r="3.5" fill="#2f3640"/>
+        <circle cx="60" cy="57" r="3.5" fill="#2f3640"/>
+        <ellipse cx="50" cy="67" rx="8" ry="6" fill="#fff7ef"/>
+        <path d="M47 66 Q50 70 53 66" stroke="#2f3640" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+        <circle cx="33" cy="65" r="4" fill="#ffb7c9" opacity=".8"/>
+        <circle cx="67" cy="65" r="4" fill="#ffb7c9" opacity=".8"/>
+      `),
+      rabbitFace: () => svgWrap(`
+        <ellipse cx="36" cy="18" rx="9" ry="18" fill="#ffffff" stroke="#d9d9e7" stroke-width="2"/>
+        <ellipse cx="64" cy="18" rx="9" ry="18" fill="#ffffff" stroke="#d9d9e7" stroke-width="2"/>
+        <ellipse cx="36" cy="20" rx="4" ry="10" fill="#ffc3d5"/>
+        <ellipse cx="64" cy="20" rx="4" ry="10" fill="#ffc3d5"/>
+        <circle cx="50" cy="52" r="28" fill="#ffffff" stroke="#dde3ef" stroke-width="2"/>
+        <circle cx="40" cy="55" r="3.3" fill="#2f3640"/>
+        <circle cx="60" cy="55" r="3.3" fill="#2f3640"/>
+        <circle cx="50" cy="64" r="3.8" fill="#ffb2c7"/>
+        <path d="M46 68 Q50 71 54 68" stroke="#2f3640" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        <circle cx="33" cy="63" r="4" fill="#ffd7e3"/>
+        <circle cx="67" cy="63" r="4" fill="#ffd7e3"/>
+      `),
+      catFace: () => svgWrap(`
+        <path d="M26 34 L37 24 L42 39" fill="#b7efd8"/>
+        <path d="M74 34 L63 24 L58 39" fill="#b7efd8"/>
+        <circle cx="50" cy="52" r="28" fill="#d9fff0" stroke="#bfead9" stroke-width="2"/>
+        <circle cx="40" cy="55" r="3.2" fill="#334155"/>
+        <circle cx="60" cy="55" r="3.2" fill="#334155"/>
+        <path d="M50 60 q-4 4 -8 0" stroke="#334155" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M50 60 q4 4 8 0" stroke="#334155" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <circle cx="35" cy="64" r="4" fill="#ffc4d7"/>
+        <circle cx="65" cy="64" r="4" fill="#ffc4d7"/>
+        <path d="M25 58 h9 M66 58 h9 M25 63 h8 M67 63 h8" stroke="#7da08f" stroke-width="1.8" stroke-linecap="round"/>
+      `),
+      chickFace: () => svgWrap(`
+        <circle cx="50" cy="52" r="30" fill="#ffe889"/>
+        <circle cx="40" cy="54" r="3.1" fill="#334155"/>
+        <circle cx="60" cy="54" r="3.1" fill="#334155"/>
+        <path d="M50 61 l-7 5 h14 z" fill="#ffb255"/>
+        <circle cx="34" cy="63" r="4" fill="#ffc4d7"/>
+        <circle cx="66" cy="63" r="4" fill="#ffc4d7"/>
+        <path d="M43 28 q7 -8 14 0" stroke="#f3b424" stroke-width="4" fill="none" stroke-linecap="round"/>
+      `),
+      voteBear: () => svgWrap(`
+        <ellipse cx="26" cy="18" rx="8" ry="7" fill="#d8b48b"/>
+        <ellipse cx="50" cy="20" rx="16" ry="14" fill="#efd8b6"/>
+        <ellipse cx="74" cy="18" rx="8" ry="7" fill="#d8b48b"/>
+        <circle cx="44" cy="22" r="2.2" fill="#2f3640"/>
+        <circle cx="56" cy="22" r="2.2" fill="#2f3640"/>
+        <path d="M46 29 q4 3 8 0" stroke="#2f3640" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <rect x="22" y="42" width="56" height="36" rx="8" fill="#d7e6ff" stroke="#8daef2" stroke-width="2"/>
+        <rect x="42" y="44" width="16" height="8" rx="3" fill="#8daef2"/>
+        <rect x="44" y="30" width="12" height="18" rx="3" fill="#ffffff" stroke="#cdd7e3" stroke-width="1.5" transform="rotate(-8 50 39)"/>
+        <path d="M48 38 l3 3 l6 -7" stroke="#5abf7d" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      `),
+      heartCloud: () => svgWrap(`
+        <circle cx="36" cy="52" r="16" fill="#ffffff"/>
+        <circle cx="52" cy="44" r="18" fill="#ffffff"/>
+        <circle cx="67" cy="54" r="15" fill="#ffffff"/>
+        <rect x="28" y="52" width="44" height="17" rx="8.5" fill="#ffffff"/>
+        <circle cx="46" cy="55" r="2.7" fill="#334155"/>
+        <circle cx="58" cy="55" r="2.7" fill="#334155"/>
+        <path d="M47 63 q5 4 10 0" stroke="#334155" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M75 28 c0 -5 4 -8 8 -8 c4 0 8 3 8 8 c0 7 -8 12 -8 12 s-8 -5 -8 -12z" fill="#ff8fb1"/>
+      `),
+      speechBubble: () => svgWrap(`
+        <path d="M18 24 h56 a14 14 0 0 1 14 14 v14 a14 14 0 0 1 -14 14 h-22 l-12 10 v-10 h-22 a14 14 0 0 1 -14 -14 v-14 a14 14 0 0 1 14 -14z" fill="#ffffff" stroke="#8cc7f0" stroke-width="3"/>
+        <circle cx="37" cy="45" r="4" fill="#8cc7f0"/>
+        <circle cx="51" cy="45" r="4" fill="#8cc7f0"/>
+        <circle cx="65" cy="45" r="4" fill="#8cc7f0"/>
+      `),
+      starBuddy: () => svgWrap(`
+        <path d="M50 18 l8 18 19 2 -14 12 4 18 -17 -10 -17 10 4 -18 -14 -12 19 -2z" fill="#ffe388" stroke="#f6c542" stroke-width="2"/>
+        <circle cx="43" cy="45" r="3" fill="#334155"/>
+        <circle cx="57" cy="45" r="3" fill="#334155"/>
+        <path d="M44 55 q6 5 12 0" stroke="#334155" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <circle cx="36" cy="54" r="3.6" fill="#ffbfd0"/>
+        <circle cx="64" cy="54" r="3.6" fill="#ffbfd0"/>
+      `)
+    };
+
+    const CHARACTER_SVGS = {
+      studentBear: () => `<svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+        <ellipse cx="43" cy="22" rx="10" ry="9" fill="#d8b48b"/><ellipse cx="77" cy="22" rx="10" ry="9" fill="#d8b48b"/>
+        <circle cx="60" cy="38" r="24" fill="#efd8b6"/>
+        <circle cx="52" cy="40" r="2.8" fill="#2f3640"/><circle cx="68" cy="40" r="2.8" fill="#2f3640"/>
+        <path d="M55 49 q5 4 10 0" stroke="#2f3640" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <rect x="34" y="64" width="52" height="48" rx="18" fill="#9fd8ff"/>
+        <rect x="44" y="72" width="32" height="16" rx="6" fill="#ffffff"/>
+        <path d="M34 82 h-10 q-8 0 -8 8 v10" stroke="#d8b48b" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <path d="M86 82 h10 q8 0 8 8 v10" stroke="#d8b48b" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <path d="M48 112 v16" stroke="#d8b48b" stroke-width="10" stroke-linecap="round"/>
+        <path d="M72 112 v16" stroke="#d8b48b" stroke-width="10" stroke-linecap="round"/>
+      </svg>`,
+      studentRabbit: () => `<svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+        <ellipse cx="46" cy="12" rx="9" ry="20" fill="#fff" stroke="#d9d9e7" stroke-width="2"/><ellipse cx="74" cy="12" rx="9" ry="20" fill="#fff" stroke="#d9d9e7" stroke-width="2"/>
+        <ellipse cx="46" cy="13" rx="4" ry="11" fill="#ffc4d7"/><ellipse cx="74" cy="13" rx="4" ry="11" fill="#ffc4d7"/>
+        <circle cx="60" cy="38" r="24" fill="#ffffff" stroke="#dde3ef" stroke-width="2"/>
+        <circle cx="52" cy="40" r="2.8" fill="#2f3640"/><circle cx="68" cy="40" r="2.8" fill="#2f3640"/>
+        <circle cx="60" cy="48" r="3.5" fill="#ffb2c7"/>
+        <path d="M55 53 q5 4 10 0" stroke="#2f3640" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <rect x="34" y="64" width="52" height="48" rx="18" fill="#cbbcff"/>
+        <path d="M34 82 h-10 q-8 0 -8 8 v10" stroke="#ffffff" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <path d="M86 82 h10 q8 0 8 8 v10" stroke="#ffffff" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <path d="M48 112 v16" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+        <path d="M72 112 v16" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+      </svg>`,
+      citizenCat: () => `<svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+        <path d="M38 18 l10 -10 5 16" fill="#c3f2df"/><path d="M82 18 l-10 -10 -5 16" fill="#c3f2df"/>
+        <circle cx="60" cy="38" r="24" fill="#ddfff1" stroke="#bfead9" stroke-width="2"/>
+        <circle cx="52" cy="40" r="2.8" fill="#334155"/><circle cx="68" cy="40" r="2.8" fill="#334155"/>
+        <path d="M60 46 q-4 4 -8 0" stroke="#334155" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M60 46 q4 4 8 0" stroke="#334155" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <rect x="34" y="64" width="52" height="48" rx="18" fill="#85d8bc"/>
+        <path d="M34 82 h-10 q-8 0 -8 8 v10" stroke="#ddfff1" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <path d="M86 82 h10 q8 0 8 8 v10" stroke="#ddfff1" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <path d="M48 112 v16" stroke="#ddfff1" stroke-width="10" stroke-linecap="round"/>
+        <path d="M72 112 v16" stroke="#ddfff1" stroke-width="10" stroke-linecap="round"/>
+      </svg>`,
+      cheerChick: () => `<svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+        <circle cx="60" cy="36" r="25" fill="#ffe889"/>
+        <circle cx="52" cy="38" r="2.8" fill="#334155"/><circle cx="68" cy="38" r="2.8" fill="#334155"/>
+        <path d="M60 44 l-6 5 h12 z" fill="#ffb255"/>
+        <path d="M54 49 q6 5 12 0" stroke="#334155" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M50 16 q10 -10 20 0" stroke="#f3b424" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <rect x="36" y="62" width="48" height="52" rx="18" fill="#ffd06d"/>
+        <path d="M36 80 h-10 q-8 0 -8 8 v10" stroke="#ffe889" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <path d="M84 80 h10 q8 0 8 8 v10" stroke="#ffe889" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <path d="M50 114 v14" stroke="#ffb255" stroke-width="10" stroke-linecap="round"/>
+        <path d="M70 114 v14" stroke="#ffb255" stroke-width="10" stroke-linecap="round"/>
+      </svg>`
+    };
+
+    function badgeHTML(text) {
+      return `<span>${text}</span>`;
+    }
+
+    function getItemHTML(item) {
+      if (item.category === 'sticker') return STICKER_SVGS[item.kind] ? STICKER_SVGS[item.kind]() : '';
+      if (item.category === 'character') return CHARACTER_SVGS[item.kind] ? CHARACTER_SVGS[item.kind]() : '';
+      if (item.category === 'badge') return badgeHTML(item.text || item.kind || '참여해요!');
+      return '';
+    }
+
+    function addPosterItem(category) {
+      let kind = '';
+      let text = '';
+      let size = category === 'character' ? 1 : 1;
+      if (category === 'sticker') kind = document.getElementById('stickerPicker').value;
+      if (category === 'character') kind = document.getElementById('characterPicker').value;
+      if (category === 'badge') { kind = 'badge'; text = document.getElementById('badgePicker').value; }
+
+      const id = `item_${Date.now()}_${Math.floor(Math.random()*1000)}`;
+      const offset = posterState.items.length % 5;
+      const item = {
+        id,
+        category,
+        kind,
+        text,
+        x: 48 + offset * 4,
+        y: 32 + offset * 6,
+        scale: category === 'character' ? 1 : 1,
+        rotate: 0
+      };
+      posterState.items.push(item);
+      posterState.selectedId = id;
+      renderPosterItems();
+      persist(true);
+    }
+
+    function transformSelected(action) {
+      const id = posterState.selectedId;
+      if (!id || id === 'quoteCard') {
+        showToast('먼저 포스터 요소를 하나 선택하세요.');
+        return;
+      }
+      const item = posterState.items.find(v => v.id === id);
+      if (!item) return;
+      if (action === 'bigger') item.scale = Math.min(2.2, +(item.scale + 0.1).toFixed(2));
+      if (action === 'smaller') item.scale = Math.max(0.5, +(item.scale - 0.1).toFixed(2));
+      if (action === 'left') item.rotate -= 8;
+      if (action === 'right') item.rotate += 8;
+      renderPosterItems();
+      persist(true);
+    }
+
+    function deleteSelectedItem() {
+      const id = posterState.selectedId;
+      if (!id || id === 'quoteCard') {
+        showToast('삭제할 요소를 먼저 선택하세요.');
+        return;
+      }
+      posterState.items = posterState.items.filter(v => v.id !== id);
+      posterState.selectedId = 'quoteCard';
+      renderPosterItems();
+      persist(true);
+    }
+
+    function clearPosterItems() {
+      if (!confirm('포스터에 추가한 요소를 모두 지울까요?')) return;
+      posterState.items = [];
+      posterState.selectedId = 'quoteCard';
+      renderPosterItems();
+      persist(true);
+    }
+
+    function selectPosterItem(id) {
+      posterState.selectedId = id;
+      renderPosterItems();
+    }
+
+    function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
+
+    function stagePercentFromPoint(clientX, clientY) {
+      const rect = document.getElementById('posterStage').getBoundingClientRect();
+      const x = clamp(((clientX - rect.left) / rect.width) * 100, 2, 98);
+      const y = clamp(((clientY - rect.top) / rect.height) * 100, 4, 96);
+      return { x, y, rect };
+    }
+
+    function startDrag(targetType, id, event) {
+      event.preventDefault();
+      const pos = stagePercentFromPoint(event.clientX, event.clientY);
+      dragInfo = { targetType, id, pointerOffsetX: pos.x, pointerOffsetY: pos.y };
+      if (targetType === 'item') selectPosterItem(id);
+      if (targetType === 'quote') {
+        posterState.selectedId = 'quoteCard';
+        renderPosterItems();
       }
     }
 
-    function getDecorationSet(style) {
-      const sets = {
-        none: { top:'', left:'', right:'', bottom:'' },
-        star: { top:'✦  ✦  ✦', left:'✦\n⭐\n✦', right:'✦\n⭐\n✦', bottom:'✦  ✦  ✦' },
-        speech: { top:'💬  🗨️  💬', left:'💬\n🗨️\n💬', right:'🗨️\n💬\n🗨️', bottom:'💬  🗨️  💬' },
-        vote: { top:'☑️  🗳️  ☑️', left:'☑️\n🗳️\n☑️', right:'🗳️\n☑️\n🗳️', bottom:'☑️  🗳️  ☑️' },
-        leaf: { top:'❀  🌿  ❀', left:'🌿\n❀\n🌿', right:'🌿\n❀\n🌿', bottom:'❀  🌿  ❀' },
-        sparkle: { top:'✨  ⭐  ✨', left:'✨\n🌟\n✨', right:'✨\n🌟\n✨', bottom:'✨  ⭐  ✨' }
-      };
-      return sets[style] || sets.none;
+    function handlePointerMove(event) {
+      if (!dragInfo) return;
+      const pos = stagePercentFromPoint(event.clientX, event.clientY);
+      if (dragInfo.targetType === 'quote') {
+        posterState.quoteCard.x = pos.x;
+        posterState.quoteCard.y = pos.y;
+        positionQuoteCard();
+      } else if (dragInfo.targetType === 'item') {
+        const item = posterState.items.find(v => v.id === dragInfo.id);
+        if (!item) return;
+        item.x = pos.x;
+        item.y = pos.y;
+        renderPosterItems();
+      }
     }
 
-    function optionText(id) {
-      const el = document.getElementById(id);
-      return el.options[el.selectedIndex]?.text || '';
+    function handlePointerUp() {
+      if (!dragInfo) return;
+      dragInfo = null;
+      persist(true);
+    }
+
+    function positionQuoteCard() {
+      const card = document.getElementById('quoteCard');
+      card.style.left = `${posterState.quoteCard.x}%`;
+      card.style.top = `${posterState.quoteCard.y}%`;
+      card.classList.toggle('selected', posterState.selectedId === 'quoteCard');
+    }
+
+    function renderPosterItems() {
+      const container = document.getElementById('posterItems');
+      container.innerHTML = '';
+      posterState.items.forEach(item => {
+        const el = document.createElement('div');
+        el.className = `poster-item ${item.category}${posterState.selectedId === item.id ? ' selected' : ''}`;
+        el.dataset.id = item.id;
+        el.style.left = `${item.x}%`;
+        el.style.top = `${item.y}%`;
+        el.style.transform = `translate(-50%, -50%) scale(${item.scale || 1}) rotate(${item.rotate || 0}deg)`;
+        el.innerHTML = getItemHTML(item);
+        el.addEventListener('pointerdown', (e) => startDrag('item', item.id, e));
+        el.addEventListener('click', (e) => { e.stopPropagation(); selectPosterItem(item.id); });
+        el.addEventListener('dblclick', (e) => { e.stopPropagation(); posterState.items = posterState.items.filter(v => v.id !== item.id); posterState.selectedId='quoteCard'; renderPosterItems(); persist(true); });
+        container.appendChild(el);
+      });
+      positionQuoteCard();
     }
 
     function updatePreview() {
       const quote = document.getElementById('myQuote').value.trim();
       const preview = document.getElementById('quotePreview');
       const sub = document.getElementById('quoteSubtext');
-      const caption = document.getElementById('miniCaption').value.trim();
-      const poster = document.getElementById('posterPreview');
-      const charLeft = document.getElementById('charLeft').value;
-      const charRight = document.getElementById('charRight').value;
-      const decorStyle = document.getElementById('decorStyle').value;
+      const theme = document.getElementById('themePreset').value;
+      const bgPattern = document.getElementById('bgPattern').value;
       const frameStyle = document.getElementById('frameStyle').value;
+      const fontMood = document.getElementById('fontMood').value;
+      const textAlign = document.getElementById('textAlign').value;
+      const fontSize = document.getElementById('fontSizeRange').value;
       const textColor = document.getElementById('quoteTextColor').value;
       const bgColor = document.getElementById('quoteBgColor').value;
       const borderColor = document.getElementById('quoteBorderColor').value;
       const accentColor = document.getElementById('accentColor').value;
-      const chars = [];
+      const ribbonText = document.getElementById('ribbonText').value.trim() || '참여해요';
+      const caption = document.getElementById('miniCaption').value.trim();
+      const stage = document.getElementById('posterStage');
+      const quoteCard = document.getElementById('quoteCard');
+      const qStyles = fontStyles(fontMood, fontSize);
 
       document.getElementById('charCount').textContent = document.getElementById('myQuote').value.length;
+      document.getElementById('fontSizeValue').textContent = fontSize;
 
       if (quote) {
         preview.textContent = `“${quote}”`;
@@ -704,51 +1285,28 @@
         preview.textContent = '여기에 나만의 명언이 크게 표시됩니다.';
         preview.classList.add('placeholder');
       }
+      Object.assign(preview.style, qStyles);
+      preview.style.textAlign = textAlign;
+      sub.style.textAlign = textAlign;
+      quoteCard.style.textAlign = textAlign;
+      preview.style.color = textColor;
 
-      if (caption) {
-        sub.textContent = caption;
-        sub.style.display = 'block';
-      } else {
-        sub.textContent = '꾸밈 문구를 넣으면 이곳에 표시됩니다.';
-        sub.style.display = 'block';
-      }
+      if (caption) sub.textContent = caption;
+      else sub.textContent = '꾸밈 문구를 넣으면 이곳에 표시됩니다.';
 
-      poster.style.setProperty('--poster-text', textColor);
-      poster.style.setProperty('--poster-bg', bgColor);
-      poster.style.setProperty('--poster-border', borderColor);
-      poster.style.setProperty('--poster-accent', accentColor);
-      poster.className = `poster-preview frame-${frameStyle}`;
+      stage.style.setProperty('--poster-text', textColor);
+      stage.style.setProperty('--poster-border', borderColor);
+      stage.style.setProperty('--poster-accent', accentColor);
+      quoteCard.style.background = `${bgColor}dd`;
+      quoteCard.style.borderColor = `${borderColor}40`;
+      stage.className = `poster-stage stage-${theme} pattern-${bgPattern} frame-${frameStyle}`;
+      stage.setAttribute('data-ribbon', ribbonText);
 
-      document.getElementById('charLeftView').textContent = charLeft;
-      document.getElementById('charRightView').textContent = charRight;
-      if (charLeft) chars.push(`왼쪽 ${optionText('charLeft')}`);
-      if (charRight) chars.push(`오른쪽 ${optionText('charRight')}`);
+      const themeText = { mint:'민트 스쿨', peach:'피치 팝', lavender:'라벤더 드림', sky:'스카이 메모' }[theme] || '민트 스쿨';
+      const patternText = { none:'배경 없음', dots:'도트', hearts:'하트', stars:'별', grid:'메모 그리드', confetti:'컨페티' }[bgPattern] || '배경 없음';
+      document.getElementById('styleSummary').textContent = `선택한 꾸미기: ${themeText} · 가로형 포스터 · ${patternText} · 자유 배치 사용 가능`;
 
-      const decor = getDecorationSet(decorStyle);
-      document.getElementById('decorTop').textContent = decor.top;
-      document.getElementById('decorLeft').textContent = decor.left;
-      document.getElementById('decorRight').textContent = decor.right;
-      document.getElementById('decorBottom').textContent = decor.bottom;
-
-      const frameTextMap = {
-        solid:'기본 테두리', dashed:'점선 테두리', double:'이중선 테두리', soft:'둥근 테두리', ribbon:'리본 테마'
-      };
-      const decorTextMap = {
-        none:'장식 없음', star:'별 장식', speech:'말풍선 장식', vote:'참여·투표 장식', leaf:'꽃·잎 장식', sparkle:'반짝 장식'
-      };
-
-      document.getElementById('styleSummary').textContent = `선택한 꾸미기: ${frameTextMap[frameStyle]} · ${decorTextMap[decorStyle]} · ${chars.length ? chars.join(', ') : '캐릭터 없음'}`;
-    }
-
-    function sanitizeFilePart(value) {
-      return value.trim().replace(/[\\/:*?"<>|]/g,'').replace(/\s+/g,'_');
-    }
-
-    function updateFileName() {
-      const no = sanitizeFilePart(document.getElementById('studentNo').value);
-      const name = sanitizeFilePart(document.getElementById('studentName').value);
-      const parts = [no, name, '정치참여명언활동지'].filter(Boolean);
-      document.getElementById('filePreview').value = parts.join('_') + '.pdf';
+      renderPosterItems();
     }
 
     function saveAsPdf() {
@@ -764,46 +1322,88 @@
       }, 250);
     }
 
+    function restore() {
+      try {
+        const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        fieldIds.forEach(id => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          if (typeof data[id] === 'string') el.value = data[id];
+          else if (DEFAULTS[id] !== undefined) el.value = DEFAULTS[id];
+        });
+        checkIds.forEach(id => {
+          if (typeof data[id] === 'boolean') document.getElementById(id).checked = data[id];
+        });
+        if (data.quote) {
+          const radio = [...document.querySelectorAll('input[name="quote"]')].find(r => r.value === data.quote);
+          if (radio) radio.checked = true;
+        }
+        if (data.posterState && typeof data.posterState === 'object') {
+          posterState = {
+            quoteCard: data.posterState.quoteCard || { x:50, y:50 },
+            items: Array.isArray(data.posterState.items) ? data.posterState.items : [],
+            selectedId: data.posterState.selectedId || 'quoteCard',
+            mode: data.posterState.mode || 'move'
+          };
+        }
+        if (!data.themePreset) applyTheme(document.getElementById('themePreset').value);
+        updateFileName();
+        updatePreview();
+        setToolMode(posterState.mode || 'move');
+        if (Object.keys(data).length) document.getElementById('saveState').textContent = '이전에 저장한 내용을 불러왔습니다.';
+      } catch (e) {
+        Object.entries(DEFAULTS).forEach(([k,v]) => { const el = document.getElementById(k); if (el) el.value = v; });
+        applyTheme('mint');
+        updatePreview();
+      }
+    }
+
     function resetWorksheet() {
       if (!confirm('작성한 내용을 모두 지우고 처음부터 시작할까요?')) return;
       localStorage.removeItem(STORAGE_KEY);
-      valueIds.forEach(id => {
+      fieldIds.forEach(id => {
         const el = document.getElementById(id);
-        if (el.type === 'color') {
-          const defaults = {
-            quoteTextColor:'#174f43',
-            quoteBgColor:'#f7fbf7',
-            quoteBorderColor:'#2f6f5e',
-            accentColor:'#f0b54a'
-          };
-          el.value = defaults[id] || '';
-        } else {
-          el.value = '';
-        }
+        if (!el) return;
+        el.value = DEFAULTS[id] !== undefined ? DEFAULTS[id] : '';
       });
-      document.getElementById('decorStyle').value = 'none';
-      document.getElementById('frameStyle').value = 'solid';
       checkIds.forEach(id => document.getElementById(id).checked = false);
       document.querySelectorAll('input[name="quote"]').forEach(r => r.checked = false);
-      updatePreview();
+      posterState = { quoteCard:{x:50,y:50}, items:[], selectedId:'quoteCard', mode:'move' };
+      applyTheme('mint');
       updateFileName();
+      updatePreview();
+      setToolMode('move');
       document.getElementById('saveState').textContent = '초기화됨';
       showToast('활동지를 초기화했습니다.');
     }
 
     document.addEventListener('input', (event) => {
       if (event.target.matches('input, textarea, select')) {
-        updatePreview();
         if (event.target.id === 'studentNo' || event.target.id === 'studentName') updateFileName();
+        if (event.target.id === 'themePreset') applyTheme(event.target.value);
+        updatePreview();
         clearTimeout(window.__autosaveTimer);
         window.__autosaveTimer = setTimeout(() => persist(true), 450);
       }
     });
 
     document.addEventListener('change', (event) => {
-      if (event.target.matches('input[type="radio"], input[type="checkbox"], select, input[type="color"]')) {
+      if (event.target.matches('input[type="radio"], input[type="checkbox"], select, input[type="color"], input[type="range"]')) {
         updatePreview();
         persist(true);
+      }
+    });
+
+    document.addEventListener('pointermove', handlePointerMove);
+    document.addEventListener('pointerup', handlePointerUp);
+    document.addEventListener('pointercancel', handlePointerUp);
+
+    document.getElementById('quoteCard').addEventListener('pointerdown', (e) => startDrag('quote', 'quoteCard', e));
+    document.getElementById('quoteCard').addEventListener('click', (e) => { e.stopPropagation(); posterState.selectedId='quoteCard'; renderPosterItems(); });
+    document.getElementById('posterStage').addEventListener('click', (e) => {
+      if (e.target.id === 'posterStage' || e.target.id === 'posterCanvas' || e.target.id === 'posterItems') {
+        posterState.selectedId = 'quoteCard';
+        renderPosterItems();
       }
     });
 
